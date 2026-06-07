@@ -1,0 +1,12 @@
+{
+  "id": "00-dev-default",
+  "title": "Default local scenario",
+  "pipeline_mode": "parallel",
+  "synthetic_test_cases": 8,
+  "load_event_count": 120,
+  "slow_test_seconds": 0,
+  "force_failure": false,
+  "conflict_profile": "none",
+  "cache_salt": "cache-baseline-v1",
+  "notes": "Estado padrao para desenvolvimento local antes das 12 execucoes reais."
+}
