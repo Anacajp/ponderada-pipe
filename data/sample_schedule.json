@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "name": "Workshop Python para Iniciantes",
+      "room_id": "A04",
+      "expected_attendees": 34,
+      "start": "2026-06-10T14:00:00",
+      "duration_minutes": 90,
+      "required_features": ["projector", "whiteboard"],
+      "priority": 3
+    },
+    {
+      "name": "Mostra de Projetos Integradores",
+      "room_id": "Multiuso",
+      "expected_attendees": 72,
+      "start": "2026-06-10T16:00:00",
+      "duration_minutes": 120,
+      "required_features": ["projector", "sound"],
+      "priority": 4
+    },
+    {
+      "name": "Reuniao de Mentoria",
+      "room_id": "A03",
+      "expected_attendees": 18,
+      "start": "2026-06-10T09:30:00",
+      "duration_minutes": 60,
+      "required_features": ["whiteboard"],
+      "priority": 2
+    }
+  ]
+}

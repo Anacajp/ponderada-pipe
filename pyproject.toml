@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eventops-campus"
+version = "0.1.0"
+description = "Planejador de eventos academicos com deteccao de conflitos de salas e horarios."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "EventOps Campus" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "matplotlib>=3.9",
+  "pandas>=2.2",
+  "pytest>=8.2",
+  "ruff>=0.8",
+]
+
+[project.scripts]
+eventops = "eventops.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["eventops*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = [
+  "integration: cenarios completos de agenda",
+  "load: cenarios maiores para medir impacto de volume",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
