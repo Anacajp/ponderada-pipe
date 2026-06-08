@@ -1,11 +1,11 @@
 {
-  "id": "05",
-  "title": "Sobreposicao de horarios na mesma sala",
+  "id": "06",
+  "title": "Aumento controlado da quantidade de testes",
   "pipeline_mode": "parallel",
-  "synthetic_test_cases": 12,
+  "synthetic_test_cases": 40,
   "load_event_count": 120,
   "slow_test_seconds": 0,
   "force_failure": false,
-  "conflict_profile": "overlap",
+  "conflict_profile": "none",
   "cache_salt": "cache-baseline-v1"
 }
