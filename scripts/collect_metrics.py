@@ -6,6 +6,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from datetime import datetime
@@ -70,14 +71,24 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_gh_json(args: list[str]) -> dict[str, Any]:
-    completed = subprocess.run(
-        ["gh", *args],
-        check=True,
-        capture_output=True,
-        encoding="utf-8",
-    )
-    return json.loads(completed.stdout)
+def run_gh_json(args: list[str], retries: int = 3) -> dict[str, Any]:
+    last_error = ""
+    for attempt in range(1, retries + 1):
+        completed = subprocess.run(
+            ["gh", *args],
+            check=False,
+            capture_output=True,
+            encoding="utf-8",
+            timeout=60,
+        )
+        if completed.returncode == 0:
+            return json.loads(completed.stdout)
+
+        last_error = completed.stderr.strip() or completed.stdout.strip()
+        if attempt < retries:
+            time.sleep(2 * attempt)
+
+    raise RuntimeError(f"gh {' '.join(args)} falhou apos {retries} tentativas: {last_error}")
 
 
 def gh_available() -> bool:
@@ -114,12 +125,18 @@ def fetch_jobs(repo: str, run_id: int) -> list[dict[str, Any]]:
 
 
 def download_artifacts(repo: str, run_id: int, destination: Path) -> None:
-    subprocess.run(
-        ["gh", "run", "download", str(run_id), "--repo", repo, "--dir", str(destination)],
-        check=False,
-        capture_output=True,
-        encoding="utf-8",
-    )
+    for attempt in range(1, 4):
+        completed = subprocess.run(
+            ["gh", "run", "download", str(run_id), "--repo", repo, "--dir", str(destination)],
+            check=False,
+            capture_output=True,
+            encoding="utf-8",
+            timeout=90,
+        )
+        if completed.returncode == 0:
+            return
+        if attempt < 3:
+            time.sleep(2 * attempt)
 
 
 def parse_junit_files(root: Path) -> TestSummary:
