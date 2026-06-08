@@ -1,11 +1,11 @@
 {
-  "id": "11",
-  "title": "Falha controlada de teste",
+  "id": "12",
+  "title": "Recuperacao verde com carga comparavel",
   "pipeline_mode": "parallel",
   "synthetic_test_cases": 18,
-  "load_event_count": 160,
+  "load_event_count": 240,
   "slow_test_seconds": 0,
-  "force_failure": true,
+  "force_failure": false,
   "conflict_profile": "none",
   "cache_salt": "cache-baseline-v1"
 }
