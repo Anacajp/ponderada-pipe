@@ -1,11 +1,11 @@
 {
-  "id": "04",
-  "title": "Conflito esperado de recurso ausente",
+  "id": "05",
+  "title": "Sobreposicao de horarios na mesma sala",
   "pipeline_mode": "parallel",
-  "synthetic_test_cases": 10,
+  "synthetic_test_cases": 12,
   "load_event_count": 120,
   "slow_test_seconds": 0,
   "force_failure": false,
-  "conflict_profile": "missing_feature",
+  "conflict_profile": "overlap",
   "cache_salt": "cache-baseline-v1"
 }
