@@ -1,11 +1,11 @@
 {
-  "id": "08",
-  "title": "Teste lento artificial para medir gargalo",
+  "id": "09",
+  "title": "Invalidacao controlada de cache",
   "pipeline_mode": "parallel",
   "synthetic_test_cases": 16,
-  "load_event_count": 220,
-  "slow_test_seconds": 3,
+  "load_event_count": 160,
+  "slow_test_seconds": 0,
   "force_failure": false,
   "conflict_profile": "none",
-  "cache_salt": "cache-baseline-v1"
+  "cache_salt": "cache-bust-scenario-09"
 }
