@@ -1,9 +1,9 @@
 {
-  "id": "06",
-  "title": "Aumento controlado da quantidade de testes",
+  "id": "07",
+  "title": "Agenda media com mais eventos gerados",
   "pipeline_mode": "parallel",
-  "synthetic_test_cases": 40,
-  "load_event_count": 120,
+  "synthetic_test_cases": 16,
+  "load_event_count": 220,
   "slow_test_seconds": 0,
   "force_failure": false,
   "conflict_profile": "none",
