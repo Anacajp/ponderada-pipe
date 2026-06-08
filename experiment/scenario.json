@@ -1,10 +1,10 @@
 {
-  "id": "07",
-  "title": "Agenda media com mais eventos gerados",
+  "id": "08",
+  "title": "Teste lento artificial para medir gargalo",
   "pipeline_mode": "parallel",
   "synthetic_test_cases": 16,
   "load_event_count": 220,
-  "slow_test_seconds": 0,
+  "slow_test_seconds": 3,
   "force_failure": false,
   "conflict_profile": "none",
   "cache_salt": "cache-baseline-v1"
