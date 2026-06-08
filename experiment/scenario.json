@@ -1,6 +1,6 @@
 {
-  "id": "01",
-  "title": "Baseline paralelo com agenda pequena",
+  "id": "02",
+  "title": "Baseline repetido para observar cache aquecido",
   "pipeline_mode": "parallel",
   "synthetic_test_cases": 8,
   "load_event_count": 120,
