@@ -54,6 +54,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--branch", default="main", help="Branch usada no experimento.")
     parser.add_argument("--limit", type=int, default=12, help="Quantidade de runs mais recentes.")
     parser.add_argument(
+        "--commit-prefix",
+        default="experiment: scenario",
+        help="Filtra runs pela mensagem do commit. Use vazio para nao filtrar.",
+    )
+    parser.add_argument(
         "--output",
         default="entregaveis/dados/pipeline_metrics.csv",
         help="Caminho do CSV final.",
@@ -109,13 +114,25 @@ def duration_seconds(started_at: str | None, completed_at: str | None) -> float:
     return round((end - start).total_seconds(), 3)
 
 
-def fetch_runs(repo: str, workflow: str, branch: str, limit: int) -> list[dict[str, Any]]:
+def fetch_runs(
+    repo: str,
+    workflow: str,
+    branch: str,
+    limit: int,
+    commit_prefix: str,
+) -> list[dict[str, Any]]:
     path = (
         f"/repos/{repo}/actions/workflows/{workflow}/runs"
-        f"?branch={branch}&per_page={max(limit, 1)}"
+        f"?branch={branch}&per_page={max(limit * 3, 30)}"
     )
     payload = run_gh_json(["api", path])
     runs = payload.get("workflow_runs", [])
+    if commit_prefix:
+        runs = [
+            run
+            for run in runs
+            if ((run.get("head_commit") or {}).get("message") or "").startswith(commit_prefix)
+        ]
     return runs[:limit]
 
 
@@ -254,7 +271,7 @@ def main() -> int:
     if not gh_available():
         raise SystemExit("GitHub CLI nao encontrado. Instale o gh e rode gh auth login.")
 
-    runs = fetch_runs(args.repo, args.workflow, args.branch, args.limit)
+    runs = fetch_runs(args.repo, args.workflow, args.branch, args.limit, args.commit_prefix)
     rows = build_rows(args.repo, runs, args.skip_artifacts)
     write_csv(rows, Path(args.output))
     write_runs_json(runs, Path(args.runs_output))
